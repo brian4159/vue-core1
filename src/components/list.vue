@@ -20,7 +20,7 @@
     label="操作">
       <template slot-scope="scope">
         <el-button type="text" size="small" @click="$router.push({name:'edit',params:{id:scope.row.id}})">修改</el-button>
-        <el-button type="text" size="small" class="del-btn" @click="submit()">删除</el-button>
+        <el-button type="text" size="small" class="del-btn" @click="del()">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -31,8 +31,10 @@
 export default {
 
   methods:{
-    submit(){
-      this.$store.dispatch('del',this.$route.params.id)
+     async del(id){
+        await this.$confirm('你确定删除吗')
+      this.$store.dispatch('del',id)
+      this.$message('删除成功')
     }
   }
 }
